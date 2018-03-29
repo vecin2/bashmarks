@@ -24,13 +24,13 @@
 
 # USAGE: 
 # s bookmarkname - saves the curr dir as bookmarkname
-# g bookmarkname - jumps to the that bookmark
-# g b[TAB] - tab completion is available
+# t bookmarkname - jumps to the that bookmark
+# t b[TAB] - tab completion is available
 # p bookmarkname - prints the bookmark
 # p b[TAB] - tab completion is available
 # d bookmarkname - deletes the bookmark
 # d [TAB] - tab completion is available
-# l - list all bookmarks
+# lb- list all bookmarks
 
 # setup file to store bookmarks
 if [ ! -n "$SDIRS" ]; then
@@ -53,7 +53,7 @@ function s {
 }
 
 # jump to bookmark
-function g {
+function t {
     check_help $1
     source $SDIRS
     target="$(eval $(echo echo $(echo \$DIR_$1)))"
@@ -88,16 +88,16 @@ function check_help {
     if [ "$1" = "-h" ] || [ "$1" = "-help" ] || [ "$1" = "--help" ] ; then
         echo ''
         echo 's <bookmark_name> - Saves the current directory as "bookmark_name"'
-        echo 'g <bookmark_name> - Goes (cd) to the directory associated with "bookmark_name"'
+        echo 't <bookmark_name> - Goes (cd) to the directory associated with "bookmark_name"'
         echo 'p <bookmark_name> - Prints the directory associated with "bookmark_name"'
         echo 'd <bookmark_name> - Deletes the bookmark'
-        echo 'l                 - Lists all available bookmarks'
+        echo 'lb                 - Lists all available bookmarks'
         kill -SIGINT $$
     fi
 }
 
 # list bookmarks with dirnam
-function l {
+function lb {
     check_help $1
     source $SDIRS
         
@@ -108,7 +108,7 @@ function l {
     # env | grep "^DIR_" | cut -c5- | sort |grep "^.*=" 
 }
 # list bookmarks without dirname
-function _l {
+function _lb {
     source $SDIRS
     env | grep "^DIR_" | cut -c5- | sort | grep "^.*=" | cut -f1 -d "=" 
 }
@@ -130,13 +130,13 @@ function _comp {
     local curw
     COMPREPLY=()
     curw=${COMP_WORDS[COMP_CWORD]}
-    COMPREPLY=($(compgen -W '`_l`' -- $curw))
+    COMPREPLY=($(compgen -W '`_lb`' -- $curw))
     return 0
 }
 
 # ZSH completion command
 function _compzsh {
-    reply=($(_l))
+    reply=($(_lb))
 }
 
 # safe delete line from sdirs
@@ -156,14 +156,21 @@ function _purge_line {
     fi
 }
 
+
+#print all bookmards to feed fzf
+function cdscuts_glob_echo {
+   source $SDIRS
+   env | grep "^DIR_" | cut -c5- | sort |grep "^.*=" | sed 's/=/\t\t/g'
+}
+
 # bind completion command for g,p,d to _comp
 if [ $ZSH_VERSION ]; then
-    compctl -K _compzsh g
+    compctl -K _compzsh t
     compctl -K _compzsh p
     compctl -K _compzsh d
 else
     shopt -s progcomp
-    complete -F _comp g
+    complete -F _comp t
     complete -F _comp p
     complete -F _comp d
 fi
