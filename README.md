@@ -22,7 +22,7 @@
     $ cd /usr/local/lib/
     $ s locallib
     $ l
-    $ g web<tab>
+    $ t web<tab>
     $ t webfolder
 
 ## Where Bashmarks are stored
