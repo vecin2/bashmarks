@@ -23,7 +23,7 @@
     $ s locallib
     $ l
     $ g web<tab>
-    $ g webfolder
+    $ t webfolder
 
 ## Where Bashmarks are stored
     
