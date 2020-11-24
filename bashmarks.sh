@@ -23,13 +23,13 @@
 
 
 # USAGE:
-# s bookmarkname - saves the curr dir as bookmarkname
+# b bookmarkname - bookmarks (saves) the curr dir as bookmarkname
 # t bookmarkname - jumps to the that bookmark
 # t b[TAB] - tab completion is available
 # p bookmarkname - prints the bookmark
 # p b[TAB] - tab completion is available
-# d bookmarkname - deletes the bookmark
-# d [TAB] - tab completion is available
+# db bookmarkname - deletes the bookmark
+# db [TAB] - tab completion is available
 # lb- list all bookmarks
 
 # setup file to store bookmarks

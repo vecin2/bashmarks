@@ -12,7 +12,7 @@ install:
 	@echo ''
 	@echo 'USAGE:'
 	@echo '------'
-	@echo 'b <bookmark_name> - Bookmarks the current directory as "bookmark_name"'
+	@echo 'b <bookmark_name> - Bookmarks (saves) the current directory as "bookmark_name"'
 	@echo 't <bookmark_name> - (cd) To the directory associated with "bookmark_name"'
 	@echo 'p <bookmark_name> - Prints the directory associated with "bookmark_name"'
 	@echo 'db <bookmark_name> - Delete bookmark'
